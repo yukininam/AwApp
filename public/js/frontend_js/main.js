@@ -139,6 +139,32 @@ $().ready(function(){
 		}
 	});
 
+		//validate Register form on keyup and submit
+		$('#loginForm').validate({
+			rules:{
+				email:{
+					required:true,
+					email:true
+					},
+
+				password:{
+					required:true,
+				}
+	
+			},
+			messages:{
+		
+				email:{
+					required: "Please enter your email",
+					email: "Please enter valid email",
+				},
+				password:{
+					required: "Please provide your password",
+				}
+			}
+		});
+	
+
 	//password strength script
 	$('#myPassword').passtrength({
 		minChars: 4,

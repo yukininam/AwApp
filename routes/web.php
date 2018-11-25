@@ -55,6 +55,9 @@ Route::post('/cart/apply-coupon','ProductsController@applyCoupon');
 Route::get('/login-register','UsersController@userLoginRegister');
 // Users Register Form Submit
 Route::post('/login-register','UsersController@register');
+//Users Login Form Submit
+Route::post('/user-login','UsersController@login');
+
 //Users logout
 Route::get('/user-logout','UsersController@logout');
 
