@@ -109,7 +109,7 @@ $().ready(function(){
 			name:{
 				required:true,
 				minlength:2,
-				accept: "[a-zA-Z]+"
+				accept:"[a-zA-Z]+" 
 			},
 			password:{
 				required:true,
@@ -117,26 +117,35 @@ $().ready(function(){
 			},
 			email:{
 				required:true,
-				email:true
-			
-			},
-			messages:{
-				name:{
-					required: "Please enter your Name",
-					minlength: "Your Name must be atleast 2 characters long",
-					accept: "Your Name must contain only letters",
-				},
-				password:{
-					required: "Please provide your password",
-					minlength: "Your password must be atleast 6 characters long"
-				},
-				email:{
-					required: "Please enter your email",
-					email: "Please enter valid email"
+				email:true,
+				remote:"/check-email"
 				}
+			},
+		messages:{
+			name:{
+				required:"Please enter your Name",
+				minlength: "Your Name must be atleast 2 characters long",
+				accept:"Your Name must contain only letters"
+			},
+			password:{
+				required: "Please provide your password",
+				minlength: "Your password must be atleast 6 characters long"
+			},
+			email:{
+				required: "Please enter your email",
+				email: "Please enter valid email",
+				remote: "Email already exist"
 			}
 		}
 	});
+
+	//password strength script
+	$('#myPassword').passtrength({
+		minChars: 4,
+		passwordToggle: true,
+		tooltip: true,
+		eyeImg: "/images/frontend_images/eye.svg"
+	  });
 });
 
 

@@ -20,4 +20,15 @@ class UsersController extends Controller
         }
         return view('users.login_register');
     }
+
+    public function checkEmail(Request $request){
+        //CHeck if user email already exist
+        $data = $request->all();
+        $usersCount = User::where('email',$data['email'])->count();
+        if($usersCount>0){
+            echo "false";
+        }else{
+            echo "true";
+        }
+    }
 }
