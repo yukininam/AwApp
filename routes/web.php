@@ -51,10 +51,15 @@ Route::any('/get-product-price','ProductsController@getProductPrice');
 // Apply Coupon
 Route::post('/cart/apply-coupon','ProductsController@applyCoupon');
 
-//check if user email already exist
-Route::match(['GET','POST'],'/login-register','UsersController@register');
+// Users Login/register page
+Route::get('/login-register','UsersController@userLoginRegister');
+// Users Register Form Submit
+Route::post('/login-register','UsersController@register');
+//Users logout
+Route::get('/user-logout','UsersController@logout');
 
-// Register / Login
+
+//check if user email already exist
 Route::match(['GET','POST'],'/check-email','UsersController@checkEmail');
 
 Route::group(['middleware' => ['auth']], function () {
