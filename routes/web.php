@@ -63,9 +63,10 @@ Route::get('/user-logout','UsersController@logout');
 
 //All routes login
 Route::group(['middleware'=>['frontLogin']],function(){
-
 	//User Account Page
 	Route::match(['get','post'],'account','UsersController@account');
+	// Check Current Password of User
+	Route::get('/check-user-pwd','UsersController@chckUserPassword');
 });
 
 

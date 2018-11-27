@@ -6,6 +6,7 @@ use App\Country;
 use Auth;
 use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -96,6 +97,21 @@ class UsersController extends Controller
             return redirect()->back()->with('flash_message_success','Your account details has been successfully updated!');
         }
         return view('users.account')->with(compact('countries','userDetails'));
+    }
+
+    public function chckUserPassword(Request $request){
+        $data = $request->all();
+        //echo "<pre>"; print_r($data); die;
+        $current_password = $data['current_pwd'];
+        $user_id = Auth::User()->id;
+        $check_password = User::where('id',$user_id)->first();
+        if (Hash::check($current_password, $check_password->password)) {
+            //echo '{"valid":true}';die;
+            echo "true"; die;
+        } else {
+            //echo '{"valid":false}';die;
+            echo "false"; die;
+        }
     }
 
     public function checkEmail(Request $request){

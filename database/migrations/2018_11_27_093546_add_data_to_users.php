@@ -14,12 +14,12 @@ class AddDataToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('address',255)->after('name');
-            $table->string('city',100)->after('address');
-            $table->string('state',100)->after('city');
-            $table->string('country',100)->after('state');
-            $table->string('pincode',100)->after('country');
-            $table->string('mobile',100)->after('pincode');
+            $table->string('address',255)->nullable()->after('name');
+            $table->string('city',100)->nullable()->after('address');
+            $table->string('state',100)->nullable()->after('city');
+            $table->string('country',100)->nullable()->after('state');
+            $table->string('pincode',100)->nullable()->after('country');
+            $table->string('mobile',100)->nullable()->after('pincode');
         });
     }
 

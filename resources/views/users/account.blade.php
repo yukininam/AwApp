@@ -44,8 +44,19 @@
 				<div class="col-sm-1">
 					<h2 class="or">OR</h2>
 				</div>
-				
+				<div class="col-sm-4">
+					<div class="signup-form"><!--sign up form-->
+						<h2>Update Password</h2>
+						<form id="passwordForm" action="{{url('/update-user-pwd')}}" method="POST">
+						{{ csrf_field() }}
+							<input id="current_pwd" name="current_pwd" type="password" placeholder="Current Password"/>
+							<input id="new_pwd" name="new_pwd" type="password" placeholder="New Password"/>
+							<input id="confirm_pwd" name="confirm_pwd" type="password" placeholder="Confirm Password"/>
+							<button type="submit" class="btn btn-default">Update</button>
+							<span id="chkPwd"></span>
+						</form>
 					</div><!--/sign up form-->
+
 				</div>
 			</div>
 		</div>
