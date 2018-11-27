@@ -24,18 +24,18 @@
 						<h2>Update Account</h2>
 						<form id="loginForm" name="loginForm" action="{{ url('/account') }}" method="POST">{{ csrf_field() }}
 							
-							<input  value="{{ $userDetails->name }}" name="name" id="name" type="name" placeholder="Name" />
-							<input name="address" id="address" type="address" placeholder="Address" />
-							<input name="city" id="city" type="city" placeholder="City" />
-							<input name="state" id="state" type="state" placeholder="State" />
+							<input value="{{ $userDetails->name }}" name="name" id="name" type="name" placeholder="Name" />
+							<input value="{{ $userDetails->address }}" name="address" id="address" type="address" placeholder="Address" />
+							<input value="{{ $userDetails->city }}" name="city" id="city" type="city" placeholder="City" />
+							<input value="{{ $userDetails->state }}" name="state" id="state" type="state" placeholder="State" />
 							<select name="country" id="country">
 								<option value="">Select Country</option>
 								@foreach($countries as $country)
-								<option value="{{ $country->country_name}}">{{ $country->country_name }}</option>
+								<option value="{{ $country->country_name}}" @if($country->country_name == $userDetails->country) selected @endif>{{ $country->country_name }}</option>
 								@endforeach
 							</select>
-							<input style="margin-top: 10px;" name="pincode" id="pincode" type="name" placeholder="Pincode" />
-							<input name="mobile" id="mobile" type="name" placeholder="Name" />
+							<input value="{{ $userDetails->pincode }}" style="margin-top: 10px;" name="pincode" id="pincode" type="name" placeholder="Pincode" />
+							<input value="{{ $userDetails->mobile }}"t name="mobile" id="mobile" type="name" placeholder="Mobile" />
 						
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
