@@ -22,7 +22,7 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Update Account</h2>
-						<form id="loginForm" name="loginForm" action="{{ url('/account') }}" method="POST">{{ csrf_field() }}
+						<form id="accountForm" name="accountForm" action="{{ url('/account') }}" method="POST">{{ csrf_field() }}
 							
 							<input value="{{ $userDetails->name }}" name="name" id="name" type="name" placeholder="Name" />
 							<input value="{{ $userDetails->address }}" name="address" id="address" type="address" placeholder="Address" />
@@ -35,9 +35,9 @@
 								@endforeach
 							</select>
 							<input value="{{ $userDetails->pincode }}" style="margin-top: 10px;" name="pincode" id="pincode" type="name" placeholder="Pincode" />
-							<input value="{{ $userDetails->mobile }}"t name="mobile" id="mobile" type="name" placeholder="Mobile" />
+							<input value="{{ $userDetails->mobile }}" name="mobile" id="mobile" type="name" placeholder="Mobile" />
 						
-							<button type="submit" class="btn btn-default">Login</button>
+							<button type="submit" class="btn btn-default">Update</button>
 						</form>
 					</div><!--/login form-->
 				</div>

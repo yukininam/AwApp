@@ -58,6 +58,30 @@ class UsersController extends Controller
         $userDetails = User::find($user_id);
         $countries = Country::get();
 
+        
+    /*    if(empty($data['name'])){
+            return redirect()->back()->with('flash_message_error','Please enter your name');
+        }
+
+        if(empty($data['address'])){
+            $data['address']='';
+        }
+        if(empty($data['city'])){
+            $data['city']='';
+        }
+        if(empty($data['state'])){
+            $data['state']='';
+        }
+        if(empty($data['country'])){
+            $data['country']='';
+        }
+        if(empty($data['pincode'])){
+            $data['pincode']='';
+        }
+        if(empty($data['mobile'])){
+            $data['mobile']='';
+        } */
+
         if($request->isMethod('post')){
             $data = $request->all();
             $user = User::find($user_id);

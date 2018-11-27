@@ -139,6 +139,60 @@ $().ready(function(){
 		}
 	});
 
+	//validate Update User Account form on keyup and submit
+	$('#accountForm').validate({
+		rules:{
+			name:{
+				required:true,
+				accept:"[a-zA-Z]+" 
+			},
+			address:{
+				required:true
+			},
+			city:{
+				required:true
+				},
+			state:{
+				required:true
+				},
+			country:{
+				required:true
+				},
+			pincode:{
+				required:true
+				},
+			mobile:{
+				required:true
+				},
+			
+			},
+		messages:{
+			name:{
+				required:"Please enter your Name",
+				accept:"Your Name must contain only letters"
+			},
+			address:{
+				required: "Please provide your address"
+			},
+			city:{
+				required: "Please enter your city"
+			},
+			state:{
+				required: "Please enter your state"
+			},
+			country:{
+				required: "Please enter your country",
+			},
+			pincode:{
+				required: "Please enter your pincode",
+			},
+			mobile:{
+				required: "Please enter your mobile",
+			},
+			
+		}
+	});
+
 		//validate Register form on keyup and submit
 		$('#loginForm').validate({
 			rules:{
