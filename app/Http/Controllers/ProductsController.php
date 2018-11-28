@@ -12,6 +12,8 @@ use App\Product;
 use App\ProductsAttribute;
 use App\ProductsImage;
 use App\Coupon;
+use App\User;
+use App\Country;
 use DB;
 
 class ProductsController extends Controller
@@ -522,6 +524,13 @@ class ProductsController extends Controller
                 applied. You are availing discount!');
 
         }
+    }
+
+    public function checkout(){
+        $user_id = Auth::user()->id;
+        $userDetails = User::find($user_id);
+        $countries = Country::get();
+        return view('products.checkout')->with(compact('userDetails','countries'));
     }
 
 }
