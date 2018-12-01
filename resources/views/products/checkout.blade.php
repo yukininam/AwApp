@@ -3,6 +3,12 @@
 
 <section id="form"><!--form-->
 		<div class="container">
+		<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="{{url('/')}}">Home</a></li>
+				  <li class="active">Checkout</li>
+				</ol>
+			</div>
 		@if(Session::has('flash_message_success'))
 		            <div class="alert alert-success alert-block">
 		                <button type="button" class="close" data-dismiss="alert">×</button> 
@@ -84,7 +90,7 @@
 								<input name="shipping_pincode" id="shipping_pincode" value="{{ $shippingDetails->pincode }}" type="text" placeholder="Shipping Pincode" class="form-control" />
 							</div>
 							<div class="form-group">
-								<input name="shipping_mobile" id="shipping_mobile" value="{{ $shippingDetails->mobile }}" type="text" placeholder="Shipping Mobile" class="form-control" />
+								<input name="shipping_mobile" id="shipping_mobile" value="{{ $shippingDetails->name }}" type="text" placeholder="Shipping Mobile" class="form-control" />
 							</div>
 							<button type="submit" class="btn btn-success">Checkout</button>
 							<!--<button onClick="window.print()">Print this page</button> -->
