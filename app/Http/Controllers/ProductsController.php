@@ -535,6 +535,7 @@ class ProductsController extends Controller
         $countries = Country::get();
 
         $shippingCount = DeliveryAddress::where('user_id',$user_id)->count();
+        $shippingDetails = array();
         if($shippingCount>0){
             $shippingDetails = DeliveryAddress::where('user_id',$user_id)->first();
         }
@@ -608,6 +609,13 @@ class ProductsController extends Controller
             $userCart[$key]->image = $productDetails->image;
         }
         return view('products.order_review')->with(compact('userDetails','shippingDetails','userCart'));
+    }
+
+    public function placeOrder(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
     }
 
 }

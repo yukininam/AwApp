@@ -112,8 +112,8 @@
 							<td class="cart_total">
 								<p class="cart_total_price">₱ {{ $cart->price*$cart->quantity }}</p>
 							</td>
-							
-						</tr>
+                        </tr>
+                        <?php $total_amount = $total_amount + ($cart->price*$cart->quantity); ?>
                         @endforeach
 						<tr>
 							<td colspan="4">&nbsp;</td>
@@ -121,35 +121,46 @@
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>$59</td>
-									</tr>
-									<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
+										<td>₱ {{ $total_amount }}</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
 										<td>Free</td>										
 									</tr>
+									<tr class="shipping-cost">
+										<td>Discount Amount</td>
+										<td>
+                                            @if(!empty(Session::get('CouponAmount')))
+                                                ₱ {{Session::get('CouponAmount') }}
+                                            @else 
+                                            ₱  0
+                                            @endif
+                                        </td>										
+									</tr>
 									<tr>
-										<td>Total</td>
-										<td><span>$61</span></td>
+										<td>Grand Total</td>
+										<td><span>₱ {{ $total_amount - Session::get('CouponAmount') }}</span></td>
 									</tr>
 								</table>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="payment-options">
+            </div>
+            <form name="paymentForm" id="paymentForm" action="{{ url('/place-older') }}" method="post"> {{csrf_field()}}
+            
+            <div class="payment-options">
 					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
+						<label><strong> Select Payment Method </strong></label>
 					</span>
 					<span>
-						<label><input type="checkbox"> Check Payment</label>
+						<label><input type="radio" name="payment_method" id="COD" value="COD"> Cash on Delivery (COD)</label>
 					</span>
 					<span>
-						<label><input type="checkbox"> Paypal</label>
+						<label><input type="radio" name="payment_method" id="paypal" value="paypal"> Paypal</label>
+                    </span>
+                    <span style="float:right;">
+                         <button type="submit" class="btn btn-success" onClick="return selectPaymentMethod();">Place Order</button>
 					</span>
 				</div>
 		</div>
