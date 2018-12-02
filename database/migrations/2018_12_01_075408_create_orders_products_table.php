@@ -20,7 +20,9 @@ class CreateOrdersProductsTable extends Migration
             $table->integer('product_id'); 
             $table->string('product_code',255);
             $table->string('product_name',255);
+            $table->string('product_price',255);
             $table->string('product_size',255);
+            $table->string('product_color',255);
             $table->string('product_qty',255);
             $table->timestamps();
         });

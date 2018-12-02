@@ -23,5 +23,18 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
             'admin' => 1
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Users',
+            'address' => 'Tarlac City',
+            'city' => 'Tarlac',
+            'state' => 'Tarlac',
+            'country' => 'Philippines',
+            'pincode' => '2300',
+            'mobile' => '09453197109',
+            'email' => 'user@user.com',
+            'password' => bcrypt('secret'),
+            'admin' => 0
+        ]);
     }
 }

@@ -125,13 +125,13 @@
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
-										<td>Free</td>										
+										<td> ₱  0</td>										
 									</tr>
 									<tr class="shipping-cost">
 										<td>Discount Amount</td>
 										<td>
                                             @if(!empty(Session::get('CouponAmount')))
-                                                ₱ {{Session::get('CouponAmount') }}
+                                                 {{Session::get('CouponAmount') }}
                                             @else 
                                             ₱  0
                                             @endif
@@ -139,7 +139,7 @@
 									</tr>
 									<tr>
 										<td>Grand Total</td>
-										<td><span>₱ {{ $total_amount - Session::get('CouponAmount') }}</span></td>
+										<td><span>₱ {{ $grand_total = $total_amount - Session::get('CouponAmount') }}</span></td>
 									</tr>
 								</table>
 							</td>
@@ -148,7 +148,7 @@
 				</table>
             </div>
             <form name="paymentForm" id="paymentForm" action="{{ url('/place-older') }}" method="post"> {{csrf_field()}}
-            
+            <input type="hidden" name="grand_total" value="{{ $grand_total }}">
             <div class="payment-options">
 					<span>
 						<label><strong> Select Payment Method </strong></label>

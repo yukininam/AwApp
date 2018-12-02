@@ -15,6 +15,8 @@ use App\Coupon;
 use App\User;
 use App\Country;
 use App\DeliveryAddress;
+use App\Order;
+use App\OrdersProduct;
 use DB;
 
 class ProductsController extends Controller
@@ -411,8 +413,10 @@ class ProductsController extends Controller
 
         $data = $request->all();
         /*echo "<pre>"; print_r($data); die;*/
-        if(empty($data['user_email'])){
+        if(empty(Auth::user()->email)){
             $data['user_email'] = '';    
+        }else{
+            $data['user_email'] = Auth::user()->email;
         }
 
         $session_id = Session::get('session_id');
@@ -441,8 +445,14 @@ class ProductsController extends Controller
     }    
 
     public function cart(){       
-        $session_id = Session::get('session_id');
-        $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+        if(Auth::check()){
+            $user_email = Auth::user()->email;
+            $userCart = DB::table('cart')->where(['user_email' => $user_email])->get();
+        }else{
+            $session_id = Session::get('session_id'); 
+            $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+        }
+        
         foreach($userCart as $key => $product){
             $productDetails = Product::where('id',$product->product_id)->first();
             $userCart[$key]->image = $productDetails->image;
@@ -504,7 +514,15 @@ class ProductsController extends Controller
 
             // Get Cart Total Amount
             $session_id = Session::get('session_id');
-            $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+
+            if(Auth::check()){
+                $user_email = Auth::user()->email;
+                $userCart = DB::table('cart')->where(['user_email' => $user_email])->get();
+            }else{
+                $session_id = Session::get('session_id'); 
+                $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+            }
+
             $total_amount = 0;
             foreach($userCart as $item){
                $total_amount = $total_amount + ($item->price * $item->quantity);
@@ -514,6 +532,7 @@ class ProductsController extends Controller
             if($couponDetails->amount_type=="Fixed"){
                 $couponAmount = $couponDetails->amount;
             }else{
+                //echo $total_amount; die;
                 $couponAmount = $total_amount * ($couponDetails->amount/100);
             }
 
@@ -614,8 +633,69 @@ class ProductsController extends Controller
     public function placeOrder(Request $request){
         if($request->isMethod('post')){
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            $user_id = Auth::user()->id;
+            $user_email = Auth::user()->email;
+
+            //get shipping address of user
+            $shippingDetails = DeliveryAddress::where(['user_email' => $user_email])->first();
+           // echo "<pre>"; print_r($data); die;
+
+           
+           if(empty(Session::get('CouponCode'))){  
+                $coupon_code = '';
+            }else{
+                $coupon_code = Session::get('CouponCode');
+            }
+            if(empty(Session::get('CouponAmount'))){
+                $coupon_amount = '';
+            }else{
+                $coupon_amount = Session::get('CouponAmount');
+            }
+     
+            $order = new Order;
+            $order->user_id = $user_id;
+            $order->user_email = $user_email;
+            $order->name = $shippingDetails->name;
+            $order->address = $shippingDetails->address;
+            $order->city = $shippingDetails->city;
+            $order->state = $shippingDetails->state;
+            $order->pincode = $shippingDetails->pincode;
+            $order->country = $shippingDetails->country;
+            $order->mobile = $shippingDetails->mobile;
+            $order->coupon_code = $coupon_code;
+            $order->coupon_amount = $coupon_amount;
+            $order->order_status = "New";
+            $order->payment_method = $data['payment_method'];
+            $order->grand_total = $data['grand_total'];
+            $order->save();
+
+            $order_id = DB::getPdo()->lastInsertId();
+
+            $cartProducts = DB::table('cart')->where(['user_email'=>$user_email])->get();
+            foreach($cartProducts as $pro){
+                $cartPro = new OrdersProduct;
+                $cartPro->order_id = $order_id;
+                $cartPro->user_id = $user_id;
+                $cartPro->product_id = $pro->product_id;
+                $cartPro->product_name =$pro->product_name;
+                $cartPro->product_code =$pro->product_code;
+                $cartPro->product_color =$pro->product_color;
+                $cartPro->product_size =$pro->size;
+                $cartPro->product_price =$pro->price;
+                $cartPro->product_qty =$pro->quantity;
+                $cartPro->save();   
+            }
+
+            Session::put('order_id',$order_id);
+            Session::put('grand_total',$data['grand_total']);
+            //redirect to thanks page
+            return redirect('/thanks')->with('flash_message_success','YOUR COD ORDER HAS BEEN PLACED!');
         }
+    }
+
+    public function thanks(Request $request){
+        return view('products.thanks');
+        //return redirect('products.thanks')->with('flash_message_success','YOUR COD ORDER HAS BEEN PLACED!');
     }
 
 }

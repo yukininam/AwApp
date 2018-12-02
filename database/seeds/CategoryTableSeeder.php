@@ -13,9 +13,9 @@ class CategoryTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             
-            'name' => 'Appliances',
-            'description' => 'asdasd',
-            'url' => 'test',
+            'name' => 'Dress',
+            'description' => 'Test',
+            'url' => 'Test',
             'status' => 1
         ]);
     }
