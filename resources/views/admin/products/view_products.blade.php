@@ -20,6 +20,7 @@
   </div>
   <div class="container-fluid">
     <hr>
+    <button onClick="window.print()" class="btn btn-primary">Print this page</button>
     <div class="row-fluid">
       <div class="span12">
         <div class="widget-box">
