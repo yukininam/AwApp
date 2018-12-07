@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/admin/delete-product/{id}','ProductsController@deleteProduct');
 	Route::get('/admin/view-products','ProductsController@viewProducts');
 	Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');
+	Route::get('/admin/view-sales-product','ProductsController@salesProduct');
 	
 	Route::match(['get', 'post'], '/admin/add-images/{id}','ProductsController@addImages');
 	Route::get('/admin/delete-alt-image/{id}','ProductsController@deleteProductAltImage');

@@ -12,6 +12,7 @@
       <ul>
         <li><a href="{{ url('/admin/add-product')}}">Add Product</a></li>
         <li><a href="{{ url('/admin/view-products')}}">View Products</a></li>
+        <li><a href="{{ url('/admin/view-sales-product')}}">View Sales Products</a></li>
       </ul>
     </li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span> <span class="label label-important">2</span></a>

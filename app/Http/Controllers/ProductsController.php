@@ -698,4 +698,12 @@ class ProductsController extends Controller
         //return redirect('products.thanks')->with('flash_message_success','YOUR COD ORDER HAS BEEN PLACED!');
     }
 
+    
+    public function salesProduct(){ 
+
+        //$productDetails = Product::get();
+        $orders = Order::get();
+        return view('admin.products.view_sales_product')->with(compact('orders'));
+    }
+
 }
